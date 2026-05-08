@@ -34,6 +34,7 @@ public class UserInterface {
             System.out.println("7. List all vehicle.");
             System.out.println("8. Add a vehicle.");
             System.out.println("9. Remove a vehicle.");
+            System.out.print("Enter a command number: ");
 
             command = scanner.nextInt();
             scanner.nextLine();
