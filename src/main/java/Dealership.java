@@ -13,6 +13,7 @@ public class Dealership {
 
     }
 
+
     public ArrayList<Vehicle> getVehicleByPrice(int min, int max) {
         return null;
     }
@@ -21,10 +22,30 @@ public class Dealership {
         return null;
     }
 
-    public void addVehicla(Vehicle, vehicle) {
+    public ArrayList<Vehicle> getVehiclesByYear(int min, int max) {
+        return null;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByColor(String color) {
+        return null;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByMileage(int min, int max) {
+        return null;
+    }
+
+    public ArrayList<Vehicle> getVehiclesByType(String vehicleType) {
+        return null;
+    }
+
+    public ArrayList<Vehicle> getAllVehicles() {
+        return this.inventory;
+    }
+
+    public void addVehicle(Vehicle vehicle) {
         this.inventory.add(vehicle);
     }
-    public void removeVehicle(Vehicle,vehicle) {
+    public void removeVehicle(Vehicle vehicle) {
         this.inventory.remove(vehicle);
     }
 
