@@ -19,9 +19,9 @@ public class UserInterface {
             System.out.println(vehicle);
         }
     }
+
     public void display() {
         init();
-        Scanner scanner = new Scanner(System.in);
         int command;
 
         do {
@@ -53,14 +53,16 @@ public class UserInterface {
                 case 99 -> System.out.println("Goodbye!");
                 default -> System.out.println("Invalid option.");
             }
-        }while (command != 99);
+        } while (command != 99);
 
     }
+
     private void processGetAllVehiclesRequest() {
         ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
         displayVehicles(vehicles);
     }
-    private void processGetByPriceRequest(){
+
+    private void processGetByPriceRequest() {
         System.out.print("Enter minimum price: ");
         double min = scanner.nextDouble();
         System.out.print("Enter maximum price: ");
@@ -71,7 +73,8 @@ public class UserInterface {
         displayVehicles(results);
 
     }
-    private void processGetByMakeModelRequest(){
+
+    private void processGetByMakeModelRequest() {
         System.out.print("Enter make: ");
         String make = scanner.nextLine();
         System.out.print("Enter model: ");
@@ -81,7 +84,8 @@ public class UserInterface {
         displayVehicles(results);
 
     }
-    private void processGetByYearRequest(){
+
+    private void processGetByYearRequest() {
         System.out.print("Enter minimum year: ");
         int min = scanner.nextInt();
         System.out.print("Enter maximum year: ");
@@ -92,7 +96,7 @@ public class UserInterface {
         displayVehicles(results);
     }
 
-    private void processGetByColorRequest(){
+    private void processGetByColorRequest() {
         System.out.print("Enter color: ");
         String color = scanner.nextLine();
 
@@ -100,16 +104,20 @@ public class UserInterface {
         displayVehicles(results);
 
     }
-    private void processGetByMileageRequest(){
+
+    private void processGetByMileageRequest() {
+        System.out.print("Enter minimum mileage: ");
+        int min = scanner.nextInt();
         System.out.print("Enter maximum mileage: ");
         int max = scanner.nextInt();
         scanner.nextLine();
 
-        ArrayList<Vehicle> results = dealership.getVehiclesByMileage(max);
+        ArrayList<Vehicle> results = dealership.getVehiclesByMileage(min, max);
         displayVehicles(results);
 
     }
-    private void processGetByVehicleTypeRequest(){
+
+    private void processGetByVehicleTypeRequest() {
         System.out.print("Enter vehicle type: ");
         String type = scanner.nextLine();
 
@@ -117,6 +125,7 @@ public class UserInterface {
         displayVehicles(results);
 
     }
+
     private void processAddVehicleRequest() {
         System.out.print("VIN: ");
         int vin = scanner.nextInt();
@@ -139,7 +148,7 @@ public class UserInterface {
         double price = scanner.nextDouble();
         scanner.nextLine();
 
-        Vehicle v = new Vehicle(vin, year, make, model, type, color, odometer, price);
+        Vehicle v = new Vehicle(vin, year, odometer, make, model, type, color, price);
         dealership.addVehicle(v);
 
         DealershipFileManager.saveDealership(dealership);
@@ -147,15 +156,26 @@ public class UserInterface {
         System.out.println("Vehicle added.");
 
     }
-    private void processRemoveVehicleRequest(){
+
+    private void processRemoveVehicleRequest() {
         System.out.print("Enter VIN of vehicle to remove: ");
         int vin = scanner.nextInt();
         scanner.nextLine();
 
-        dealership.removeVehicle(vin);
-        DealershipFileManager.saveDealership(dealership);
+        Vehicle vehicleToRemove = null;
+        for (Vehicle v : dealership.getAllVehicles()) {
+            if (v.getVin() == vin) {
+                vehicleToRemove = v;
+                break;
+            }
+        }
 
-        System.out.println("Vehicle removed.");
-
+        if (vehicleToRemove != null) {
+            dealership.removeVehicle(vehicleToRemove);
+            DealershipFileManager.saveDealership(dealership);
+            System.out.println("Vehicle removed.");
+        } else {
+            System.out.println("Vehicle not found.");
+        }
     }
 }
