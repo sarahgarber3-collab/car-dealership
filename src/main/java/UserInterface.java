@@ -35,6 +35,7 @@ public class UserInterface {
             System.out.println("7. List all vehicle.");
             System.out.println("8. Add a vehicle.");
             System.out.println("9. Remove a vehicle.");
+            System.out.println(("10. Sell/Lease a vehicle."));
             System.out.print("Enter a command number: ");
 
             command = scanner.nextInt();
@@ -50,12 +51,14 @@ public class UserInterface {
                 case 7 -> processGetAllVehiclesRequest();
                 case 8 -> processAddVehicleRequest();
                 case 9 -> processRemoveVehicleRequest();
+                case 10 ->processSellLeaseVehicle();
                 case 99 -> System.out.println("Goodbye!");
                 default -> System.out.println("Invalid option.");
             }
         } while (command != 99);
 
     }
+    private void processSellLeaseVehicle()
 
     private void processGetAllVehiclesRequest() {
         ArrayList<Vehicle> vehicles = dealership.getAllVehicles();
